@@ -1,1 +1,3 @@
- 프로그래머스/**/*.sql linguist-detectable=true
+프로그래머스/** linguist-documentation=false
+프로그래머스/** linguist-vendored=false
+프로그래머스/**/*.sql linguist-detectable=true
