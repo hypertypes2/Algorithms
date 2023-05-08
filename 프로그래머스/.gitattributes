@@ -1,1 +1,2 @@
-lv4/*.sql linguist-detectable=true
+lv2/**/*.sql linguist-detectable=true
+lv4/**/*.sql linguist-detectable=true
