@@ -33,6 +33,7 @@ for i in range(n):
     for j in range(m):
         if graph[i][j]==0:
             flag=False
+            pass
 if not flag:
     print(-1)
 else:
