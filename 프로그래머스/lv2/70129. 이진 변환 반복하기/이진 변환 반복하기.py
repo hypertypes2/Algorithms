@@ -1,13 +1,14 @@
 def solution(s):
-    a,b=0,0
+    cnt,num=0,0
     while s!='1':
-        a+=s.count('0')
+        num+=s.count('0')
         s=s.replace('0','')
         c=len(s)
-        ns=''
+        temp=''
         while c!=1:
-            ns+=str(c%2)
+            temp+=str(c%2)
             c//=2
-        b+=1
-        s=str(c)+ns[::-1]
-    return [b,a]
+        temp+='1'
+        s=temp[::-1]
+        cnt+=1
+    return cnt,num
