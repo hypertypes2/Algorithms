@@ -6,16 +6,11 @@ def solution(s):
     
     for char in s:
         if char == '{':
-            array = []
-        elif char.isdigit():
+            temp = ''
+        elif char == '}':
+            lst.append(list(map(int,temp.split(','))))
+        else:
             temp += char
-        elif char == ',' and len(temp)!=0:
-            array.append(temp)
-            temp = ''
-        elif char=='}':
-            array.append(temp)
-            lst.append(array)
-            temp = ''
     
     tuple = sorted(lst,key=lambda x:len(x))
     for tu in tuple:
