@@ -5,7 +5,6 @@ empty = []
 teach = []
 stude = []
 
-ans = 'NO'
 dx = [1,0,-1,0]
 dy = [0,1,0,-1]
 
@@ -20,8 +19,6 @@ for i in range(n):
             
 def DFS(wall, idx):
     global ans
-    # if ans == 'YES':
-    #     return 
     if len(wall) == 3:
         for i,j in wall:
             map[i][j] = 'O'
@@ -38,11 +35,9 @@ def DFS(wall, idx):
                         for i,j in wall:
                             map[i][j] = 'X'
                         return
-        #ans = 'YES'
         print('YES')
         exit(0)
-        return      
-    
+ 
     for i in range(idx,len(empty)):
         wall.append(empty[i])
         DFS(wall, i+1)
@@ -51,4 +46,4 @@ def DFS(wall, idx):
 
 DFS([],0)
 
-print(ans)
+print("NO")
