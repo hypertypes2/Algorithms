@@ -1,53 +1,64 @@
 import sys
-input=sys.stdin.readline
-n,m=map(int,input().split())
-graph=[list(map(int,input().split())) for _ in range(n)]
-temp=[[0 for col in range(m)] for row in range(n)]
-dx=[0,1,0,-1]
-dy=[1,0,-1,0]
-ans=0
+from collections import deque
+input = sys.stdin.readline
+n,m = map(int,input().split())
+maps = [list(map(int,input().split())) for _ in range(n)]
 
-def deepcopy(graph):
-    for i in range(n):
-        for j in range(m):
-            temp[i][j]=graph[i][j]
+loc = []
+virus = []
+ans = 0
+
+dx = [1,0,-1,0]
+dy = [0,1,0,-1]
+
+for i in range(n):
+    for j in range(m):
+        if maps[i][j] == 0:
+            loc.append((i,j))
+        elif maps[i][j] == 2:
+            virus.append((i,j))
+
+def BFS(temp,que):
+    while que:
+        x,y = que.popleft()
+        for o in range(4):
+            nx = x + dx[o]
+            ny = y + dy[o]
+            if 0<=nx<n and 0<=ny<m and temp[nx][ny]==0:
+                temp[nx][ny] = 2
+                que.append((nx,ny))
     return temp
-
-def DFS1(x,y):
-    for o in range(4):
-        nx=x+dx[o]
-        ny=y+dy[o]
-        if nx<0 or nx>=n or ny<0 or ny>=m:
-            continue
-        if temp[nx][ny]==0:
-            temp[nx][ny]=2
-            DFS1(nx,ny)
+                 
+def DFS(idx,path):
+    global ans, maps, virus
+    if len(path) == 3:
+        wall = path[:]
+        temp = [[0 for _ in range(m)] for _ in range(n)]
+        for i in range(n):
+            for j in range(m):
+                temp[i][j] = maps[i][j]
+        for i,j in wall:
+            temp[i][j] = 1
             
-def DFS2(w):
-    global ans
-    if w==3:
-        cnt=0
+        que = deque()
+        for (x,y) in virus:
+            que.append((x,y))    
+            
+        temp = BFS(temp,que)
+        
+        cnt = 0
         for i in range(n):
             for j in range(m):
-                temp[i][j]=graph[i][j]
-        for i in range(n):
-            for j in range(m):
-                if temp[i][j]==2:
-                    DFS1(i,j)
-        for i in range(n):
-            for j in range(m):
-                if temp[i][j]==0:
-                    cnt+=1
-        ans=max(ans,cnt)        
+                if temp[i][j] == 0:
+                    cnt += 1
+        ans = max(ans,cnt)
+                    
         return
-    for i in range(n):
-        for j in range(m):
-            if graph[i][j]==0:
-                graph[i][j]=1
-                w+=1
-                DFS2(w)
-                graph[i][j]=0
-                w-=1
+    
+    for i in range(idx, len(loc)):
+        path.append((loc[i]))
+        DFS(i+1,path)
+        path.pop()
 
-DFS2(0)
+DFS(0,[])    
 print(ans)
