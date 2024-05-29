@@ -1,17 +1,16 @@
 def solution(word):
-    mo = ['A','E','I','O','U']
+    mo = 'AEIOU'
     dic = []
-    
+
     def DFS(path):
-        if len(path) > 5:
+        dic.append(path)
+        if len(path) == 5:
             return
-        
-        dic.append(path[:])
-        for i in range(5):
-            DFS(path+mo[i])
-            
+        for idx in range(len(mo)):
+            DFS(path+mo[idx])
+
     DFS('')
     
-    for idx,w in enumerate(dic):
-        if w == word:
-            return idx
+    for ans,char in enumerate(dic):
+        if char == word:
+            return ans
