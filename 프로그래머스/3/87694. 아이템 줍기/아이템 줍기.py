@@ -2,7 +2,7 @@ def solution(rectangle, characterX, characterY, itemX, itemY):
     
     MAXN = 51
     maps = [[0 for _ in range(2*MAXN)] for _ in range(2*MAXN)]
-    path = []
+    ans, path = [], []
     dx = [1,0,-1,0]
     dy = [0,1,0,-1]
 
@@ -17,12 +17,6 @@ def solution(rectangle, characterX, characterY, itemX, itemY):
                 if maps[i][j]!=1:
                     path.append((i,j))
 
-    start = (2*(MAXN-characterY), 2*characterX)
-    target = (2*(MAXN-itemY), 2*itemX)
-
-    ans = []
-    path.sort()
-
     def DFS(start,path,cnt):
         nonlocal ans,target
         if start == target:
@@ -32,12 +26,13 @@ def solution(rectangle, characterX, characterY, itemX, itemY):
         for o in range(4):
             nx = x + dx[o]
             ny = y + dy[o]
-            if ((nx,ny) in path) and maps[nx][ny]!=1:
+            if ((nx,ny) in path):
                 temp = path[:]
                 temp.remove((x,y))
                 DFS((nx,ny),temp,cnt+1)
                 
-                
+    start = (2*(MAXN-characterY), 2*characterX)
+    target = (2*(MAXN-itemY), 2*itemX)    
     DFS(start,path,0)
     
     return min(ans)//2
