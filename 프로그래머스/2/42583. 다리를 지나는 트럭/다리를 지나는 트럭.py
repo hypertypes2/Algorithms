@@ -5,6 +5,10 @@ def solution(bridge_length, weight, truck_weights):
 
     while stack or bridge:
         time +=1
+        if bridge:
+            for i in range(len(bridge)):
+                bridge[i][0] += 1            
+            
         for x,y in bridge:
             if x >= bridge_length:
                 bridge.pop(0)
@@ -19,8 +23,5 @@ def solution(bridge_length, weight, truck_weights):
             now = stack[-1]
             if len(bridge)+1 <= bridge_length and sum+now <= weight:
                 bridge.append([0,stack.pop()])
-
-        for i in range(len(bridge)):
-            bridge[i][0] += 1 
 
     return time     
