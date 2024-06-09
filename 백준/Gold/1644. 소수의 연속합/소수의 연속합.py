@@ -10,7 +10,7 @@ k = 0
 ans = 0
 
 for num in range(2,int(n**0.5)+1):
-    for i in range(num+num,n+1,num):
+    for i in range(num*num,n+1,num):
         table[i] = 1
 
 for i in range(1,n+1):
